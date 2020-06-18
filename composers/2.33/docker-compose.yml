@@ -1,0 +1,23 @@
+version: '3'
+services:
+    dhis:
+        image: dhis2/core:2.33.4
+        ports:
+            - "8033:8080"
+        volumes:
+            - /home/jaime/uio/docker/jaime-dhis2-docker/composers/2.33/conf/dhis.conf:/DHIS2_home/dhis.conf
+        environment:
+            - WAIT_FOR_DB_CONTAINER=db33:5432 -t 0
+        depends_on:
+            - db33
+    db33:
+        image: mdillon/postgis:10-alpine
+        ports:
+            - "3332:5432"
+        volumes:
+            - /home/jaime/uio/dbs/2.33/:/docker-entrypoint-initdb.d/
+        command: postgres -c max_locks_per_transaction=96
+        environment:
+            - POSTGRES_PASSWORD=dhis
+            - POSTGRES_USER=dhis
+            - POSTGRES_DB=dhis2
