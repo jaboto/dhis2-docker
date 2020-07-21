@@ -1,11 +1,11 @@
 version: '3'
 services:
     dhis:
-        image: dhis2/core:2.32.5
+        image: dhis2/core:2.32.6
         ports:
             - "8032:8080"
         volumes:
-            - /home/jaime/uio/docker/jaime-dhis2-docker/composers/2.32/conf/dhis.conf:/DHIS2_home/dhis.conf
+            - /home/jaime/uio/github/jaboto/dhis2-docker/composers/2.32/conf/dhis.conf:/DHIS2_home/dhis.conf
         environment:
             - WAIT_FOR_DB_CONTAINER=db32:5432 -t 0
         depends_on:
